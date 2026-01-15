@@ -2,71 +2,122 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>HTML5 Game Archive</title>
+  <title>Eastlake Games</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
   <style>
     body {
-      background: #0f0f0f;
-      color: #eaeaea;
-      font-family: Arial, sans-serif;
-      padding: 40px;
-    }
-    h1 {
-      margin-bottom: 10px;
-    }
-    p {
-      color: #aaa;
-    }
-    ul {
-      list-style: none;
+      margin: 0;
       padding: 0;
-      margin-top: 30px;
+      background: linear-gradient(180deg, #0b0f14, #0f1720);
+      color: #e6e6e6;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
     }
-    li {
-      margin: 8px 0;
+
+    header {
+      text-align: center;
+      padding: 60px 20px 30px;
     }
-    a {
-      color: #4da6ff;
+
+    header h1 {
+      font-size: 42px;
+      margin: 0;
+      letter-spacing: 1px;
+    }
+
+    header p {
+      margin-top: 12px;
+      font-size: 16px;
+      color: #aab4c3;
+    }
+
+    main {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 30px 20px 60px;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+      gap: 20px;
+    }
+
+    .card {
+      background: #151c27;
+      border-radius: 14px;
+      padding: 22px 16px;
+      text-align: center;
       text-decoration: none;
-      font-size: 18px;
+      color: #ffffff;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.35);
+      transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
     }
-    a:hover {
-      text-decoration: underline;
+
+    .card:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 14px 30px rgba(0, 0, 0, 0.5);
+      background: #1b2534;
+    }
+
+    .card span {
+      display: block;
+      font-size: 18px;
+      margin-top: 8px;
+    }
+
+    footer {
+      text-align: center;
+      padding: 30px 10px;
+      font-size: 13px;
+      color: #6f7a8a;
     }
   </style>
 </head>
+
 <body>
 
-<h1>HTML5 Game Archive</h1>
-<p>Click a game to play.</p>
+<header>
+  <h1>Eastlake Games</h1>
+  <p>Official School Games, Authorized For Student Use</p>
+</header>
 
-<ul id="games"></ul>
+<main>
+  <div class="grid" id="games"></div>
+</main>
+
+<footer>
+  © Eastlake • HTML5 Game Archive
+</footer>
 
 <script>
-const user = "counterofdays";
-const repo = "educatingtheworld";
-const path = "games";
+  const user = "counterofdays";
+  const repo = "educatingtheworld";
+  const path = "games";
 
-fetch(`https://api.github.com/repos/${user}/${repo}/contents/${path}`)
-  .then(res => res.json())
-  .then(items => {
-    const list = document.getElementById("games");
+  fetch(`https://api.github.com/repos/${user}/${repo}/contents/${path}`)
+    .then(res => res.json())
+    .then(items => {
+      const container = document.getElementById("games");
 
-    items
-      .filter(item => item.type === "dir")
-      .forEach(item => {
-        const li = document.createElement("li");
-        const a = document.createElement("a");
+      items
+        .filter(item => item.type === "dir")
+        .sort((a, b) => a.name.localeCompare(b.name))
+        .forEach(item => {
+          const link = document.createElement("a");
+          link.className = "card";
+          link.href = `/educatingtheworld/games/${item.name}/`;
 
-        a.href = `/educatingtheworld/games/${item.name}/`;
-        a.textContent = item.name.replace(/-/g, " ");
+          const name = document.createElement("span");
+          name.textContent = item.name.replace(/-/g, " ");
 
-        li.appendChild(a);
-        list.appendChild(li);
-      });
-  })
-  .catch(err => {
-    console.error("Failed to load games", err);
-  });
+          link.appendChild(name);
+          container.appendChild(link);
+        });
+    })
+    .catch(err => {
+      console.error("Failed to load games", err);
+    });
 </script>
 
 </body>
