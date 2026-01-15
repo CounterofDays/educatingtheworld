@@ -5,7 +5,6 @@
   <title>Eastlake Games</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
-  <!-- Font close to Eastlake district style -->
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 
   <style>
@@ -14,7 +13,6 @@
       --eastlake-dark: #7a171a;
       --eastlake-light: #f4f4f4;
       --eastlake-gray: #6b6b6b;
-      --white: #ffffff;
     }
 
     * { box-sizing: border-box; }
@@ -26,7 +24,6 @@
       color: #222;
     }
 
-    /* ───── Utility Bar ───── */
     .utility-bar {
       background: #ffffff;
       border-bottom: 1px solid #ddd;
@@ -38,7 +35,6 @@
       color: var(--eastlake-gray);
     }
 
-    /* ───── Header / Nav ───── */
     header {
       background: var(--eastlake-red);
       color: #fff;
@@ -59,14 +55,13 @@
       margin: 0;
       font-size: 28px;
       font-weight: 800;
-      letter-spacing: 0.8px;
       text-transform: uppercase;
+      letter-spacing: 0.8px;
     }
 
     .branding span {
       font-size: 13px;
       opacity: 0.9;
-      letter-spacing: 0.6px;
     }
 
     nav {
@@ -82,11 +77,6 @@
       font-weight: 600;
     }
 
-    nav a:hover {
-      text-decoration: underline;
-    }
-
-    /* ───── Search Bar ───── */
     .search-box {
       position: relative;
     }
@@ -108,7 +98,6 @@
       opacity: 0.6;
     }
 
-    /* ───── Section Header ───── */
     .section-header {
       background: var(--eastlake-red);
       color: #fff;
@@ -120,11 +109,10 @@
       margin: 0 auto;
       font-size: 34px;
       font-weight: 800;
-      letter-spacing: 1px;
       text-transform: uppercase;
+      letter-spacing: 1px;
     }
 
-    /* ───── Main Content ───── */
     main {
       max-width: 1300px;
       margin: 40px auto 60px;
@@ -165,7 +153,6 @@
       text-transform: capitalize;
     }
 
-    /* ───── Footer ───── */
     footer {
       background: var(--eastlake-dark);
       color: #f0dede;
@@ -221,10 +208,35 @@
   const repo = "educatingtheworld";
   const path = "games";
 
+  // 🔧 MANUAL GAMES — EDIT THIS LIST
+  const manualGames = [
+    { name: "SandBoxels", url: "https://hydrophobis.github.io/sandboxels/" },
+    { name: "Bit Planes", url: "https://counterofdays.github.io/another-game-repository/bit-planes/" },
+    { name: "Super Hot", url: "https://counterofdays.github.io/another-game-repository/superhot/" }
+  ];
+
   const container = document.getElementById("games");
   const searchInput = document.getElementById("searchInput");
   let cards = [];
 
+  function createCard(name, url) {
+    const link = document.createElement("a");
+    link.className = "card";
+    link.href = url;
+    link.dataset.name = name.toLowerCase();
+
+    const span = document.createElement("span");
+    span.textContent = name;
+
+    link.appendChild(span);
+    container.appendChild(link);
+    cards.push(link);
+  }
+
+  // Load manual games first
+  manualGames.forEach(game => createCard(game.name, game.url));
+
+  // Load GitHub games
   fetch(`https://api.github.com/repos/${user}/${repo}/contents/${path}`)
     .then(res => res.json())
     .then(items => {
@@ -232,27 +244,21 @@
         .filter(item => item.type === "dir")
         .sort((a, b) => a.name.localeCompare(b.name))
         .forEach(item => {
-          const link = document.createElement("a");
-          link.className = "card";
-          link.href = `/educatingtheworld/games/${item.name}/`;
-          link.dataset.name = item.name.toLowerCase();
-
-          const name = document.createElement("span");
-          name.textContent = item.name.replace(/-/g, " ");
-
-          link.appendChild(name);
-          container.appendChild(link);
-          cards.push(link);
+          const name = item.name.replace(/-/g, " ");
+          const url = `/educatingtheworld/games/${item.name}/`;
+          createCard(name, url);
         });
     });
 
-  // Live search filtering
+  // 🔍 Live search filtering
   searchInput.addEventListener("input", () => {
     const query = searchInput.value.toLowerCase();
 
     cards.forEach(card => {
-      const match = card.dataset.name.includes(query);
-      card.classList.toggle("hidden", !match);
+      card.classList.toggle(
+        "hidden",
+        !card.dataset.name.includes(query)
+      );
     });
   });
 </script>
