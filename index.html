@@ -5,113 +5,215 @@
   <title>Eastlake Games</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
+  <!-- Font close to Eastlake district style -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
   <style>
+    :root {
+      --eastlake-red: #8c1d21;
+      --eastlake-dark: #7a171a;
+      --eastlake-light: #f4f4f4;
+      --eastlake-gray: #6b6b6b;
+      --white: #ffffff;
+    }
+
+    * { box-sizing: border-box; }
+
     body {
       margin: 0;
-      font-family: system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
-      background: #991b1e;
-      color: #111;
+      font-family: "Inter", system-ui, sans-serif;
+      background: var(--eastlake-light);
+      color: #222;
     }
 
+    /* ───── Utility Bar ───── */
+    .utility-bar {
+      background: #ffffff;
+      border-bottom: 1px solid #ddd;
+      padding: 6px 20px;
+      display: flex;
+      justify-content: flex-end;
+      gap: 18px;
+      font-size: 12px;
+      color: var(--eastlake-gray);
+    }
+
+    /* ───── Header / Nav ───── */
     header {
-      background: #f2f2f2;
-      border-bottom: 4px solid #7f1619;
-      padding: 40px 20px 28px;
-      animation: fadeDown 0.6s ease;
+      background: var(--eastlake-red);
+      color: #fff;
     }
 
-    header h1 {
+    .header-inner {
+      max-width: 1300px;
+      margin: 0 auto;
+      padding: 22px 20px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 16px;
+    }
+
+    .branding h1 {
       margin: 0;
-      font-size: 36px;
-      color: #8c1d21;
-      letter-spacing: 0.5px;
+      font-size: 28px;
+      font-weight: 800;
+      letter-spacing: 0.8px;
+      text-transform: uppercase;
     }
 
-    header p {
-      margin-top: 10px;
-      font-size: 15px;
-      color: #444;
-      max-width: 700px;
+    .branding span {
+      font-size: 13px;
+      opacity: 0.9;
+      letter-spacing: 0.6px;
     }
 
-    .motto {
-      margin-top: 14px;
-      font-weight: 600;
-      color: #6e1417;
+    nav {
+      display: flex;
+      gap: 18px;
+      flex-wrap: wrap;
+    }
+
+    nav a {
+      color: #fff;
+      text-decoration: none;
       font-size: 14px;
-      letter-spacing: 0.4px;
+      font-weight: 600;
     }
 
+    nav a:hover {
+      text-decoration: underline;
+    }
+
+    /* ───── Search Bar ───── */
+    .search-box {
+      position: relative;
+    }
+
+    .search-box input {
+      padding: 8px 34px 8px 12px;
+      border-radius: 3px;
+      border: none;
+      font-size: 13px;
+      outline: none;
+    }
+
+    .search-box::after {
+      content: "🔍";
+      position: absolute;
+      right: 10px;
+      top: 50%;
+      transform: translateY(-50%);
+      opacity: 0.6;
+    }
+
+    /* ───── Section Header ───── */
+    .section-header {
+      background: var(--eastlake-red);
+      color: #fff;
+      padding: 36px 20px;
+    }
+
+    .section-header h2 {
+      max-width: 1300px;
+      margin: 0 auto;
+      font-size: 34px;
+      font-weight: 800;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+    }
+
+    /* ───── Main Content ───── */
     main {
-      max-width: 1200px;
+      max-width: 1300px;
       margin: 40px auto 60px;
       padding: 0 20px;
     }
 
     .grid {
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-      gap: 22px;
-      animation: fadeUp 0.6s ease;
+      grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+      gap: 24px;
     }
 
     .card {
-      background: #ffffff;
-      border-radius: 8px;
-      padding: 22px 16px;
+      background: #fff;
+      border-radius: 4px;
+      padding: 26px 18px;
       text-align: center;
       text-decoration: none;
       color: #222;
-      box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+      box-shadow: 0 4px 12px rgba(0,0,0,0.12);
       transition: transform 0.2s ease, box-shadow 0.2s ease;
     }
 
+    .card.hidden {
+      display: none;
+    }
+
     .card:hover {
-      transform: translateY(-4px);
-      box-shadow: 0 10px 20px rgba(0,0,0,0.25);
+      transform: translateY(-6px);
+      box-shadow: 0 10px 22px rgba(0,0,0,0.22);
     }
 
     .card span {
       display: block;
-      font-size: 17px;
-      font-weight: 600;
-      color: #7a171a;
+      font-size: 18px;
+      font-weight: 700;
+      color: var(--eastlake-dark);
+      text-transform: capitalize;
     }
 
+    /* ───── Footer ───── */
     footer {
-      background: #7f1619;
+      background: var(--eastlake-dark);
       color: #f0dede;
       text-align: center;
-      padding: 22px 12px;
+      padding: 24px 14px;
       font-size: 13px;
-    }
-
-    @keyframes fadeDown {
-      from { opacity: 0; transform: translateY(-10px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-
-    @keyframes fadeUp {
-      from { opacity: 0; transform: translateY(10px); }
-      to { opacity: 1; transform: translateY(0); }
     }
   </style>
 </head>
 
 <body>
 
+<div class="utility-bar">
+  <span>Translate</span>
+  <span>Help</span>
+</div>
+
 <header>
-  <h1>Eastlake Games</h1>
-  <p>Official School Games, Authorized For Student Use</p>
-  <div class="motto">Wolf Strong Pack Strong</div>
+  <div class="header-inner">
+    <div class="branding">
+      <h1>Eastlake Games</h1>
+      <span>Eastlake High School</span>
+    </div>
+
+    <nav>
+      <a href="#">About</a>
+      <a href="#">Academics</a>
+      <a href="#">Activities</a>
+      <a href="#">Athletics</a>
+      <a href="#">Students</a>
+    </nav>
+
+    <div class="search-box">
+      <input type="text" id="searchInput" placeholder="Search games">
+    </div>
+  </div>
 </header>
+
+<div class="section-header">
+  <h2>Games Directory</h2>
+</div>
 
 <main>
   <div class="grid" id="games"></div>
 </main>
 
 <footer>
-  Eastlake High School • Approved Digital Resources
+  Eastlake High School • Approved Digital Student Resources
 </footer>
 
 <script>
@@ -119,11 +221,13 @@
   const repo = "educatingtheworld";
   const path = "games";
 
+  const container = document.getElementById("games");
+  const searchInput = document.getElementById("searchInput");
+  let cards = [];
+
   fetch(`https://api.github.com/repos/${user}/${repo}/contents/${path}`)
     .then(res => res.json())
     .then(items => {
-      const container = document.getElementById("games");
-
       items
         .filter(item => item.type === "dir")
         .sort((a, b) => a.name.localeCompare(b.name))
@@ -131,17 +235,26 @@
           const link = document.createElement("a");
           link.className = "card";
           link.href = `/educatingtheworld/games/${item.name}/`;
+          link.dataset.name = item.name.toLowerCase();
 
           const name = document.createElement("span");
           name.textContent = item.name.replace(/-/g, " ");
 
           link.appendChild(name);
           container.appendChild(link);
+          cards.push(link);
         });
-    })
-    .catch(err => {
-      console.error("Failed to load games", err);
     });
+
+  // Live search filtering
+  searchInput.addEventListener("input", () => {
+    const query = searchInput.value.toLowerCase();
+
+    cards.forEach(card => {
+      const match = card.dataset.name.includes(query);
+      card.classList.toggle("hidden", !match);
+    });
+  });
 </script>
 
 </body>
