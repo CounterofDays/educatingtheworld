@@ -5,160 +5,257 @@
   <title>Eastlake Games</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
+  <!-- Professional font stack -->
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 
   <style>
+    /* =======================
+       DESIGN SYSTEM
+    ======================= */
     :root {
-      --eastlake-red: #8c1d21;
-      --eastlake-dark: #7a171a;
-      --eastlake-light: #f4f4f4;
-      --eastlake-gray: #6b6b6b;
+      --red-primary: #8c1d21;
+      --red-dark: #6f1417;
+      --bg-main: #f6f7f8;
+      --bg-card: #ffffff;
+      --text-main: #1f2933;
+      --text-muted: #6b7280;
+      --border-light: #e5e7eb;
+      --shadow-soft: 0 6px 18px rgba(0,0,0,0.08);
+      --shadow-hover: 0 14px 32px rgba(0,0,0,0.18);
     }
 
-    * { box-sizing: border-box; }
+    * {
+      box-sizing: border-box;
+    }
 
     body {
       margin: 0;
       font-family: "Inter", system-ui, sans-serif;
-      background: var(--eastlake-light);
-      color: #222;
+      background: var(--bg-main);
+      color: var(--text-main);
     }
 
+    /* =======================
+       UTILITY BAR
+    ======================= */
     .utility-bar {
       background: #ffffff;
-      border-bottom: 1px solid #ddd;
-      padding: 6px 20px;
+      border-bottom: 1px solid var(--border-light);
+      padding: 6px 24px;
       display: flex;
       justify-content: flex-end;
-      gap: 18px;
+      gap: 20px;
       font-size: 12px;
-      color: var(--eastlake-gray);
+      color: var(--text-muted);
     }
 
+    /* =======================
+       HEADER
+    ======================= */
     header {
-      background: var(--eastlake-red);
-      color: #fff;
+      background: linear-gradient(180deg, var(--red-primary), var(--red-dark));
+      color: #ffffff;
     }
 
     .header-inner {
-      max-width: 1300px;
+      max-width: 1400px;
       margin: 0 auto;
-      padding: 22px 20px;
-      display: flex;
+      padding: 26px 24px 22px;
+      display: grid;
+      grid-template-columns: auto 1fr auto;
       align-items: center;
-      justify-content: space-between;
-      flex-wrap: wrap;
-      gap: 16px;
+      gap: 24px;
     }
 
     .branding h1 {
       margin: 0;
       font-size: 28px;
       font-weight: 800;
-      text-transform: uppercase;
       letter-spacing: 0.8px;
+      text-transform: uppercase;
     }
 
     .branding span {
       font-size: 13px;
       opacity: 0.9;
+      letter-spacing: 0.4px;
     }
 
     nav {
       display: flex;
-      gap: 18px;
-      flex-wrap: wrap;
+      justify-content: center;
+      gap: 26px;
     }
 
     nav a {
-      color: #fff;
+      color: #ffffff;
       text-decoration: none;
       font-size: 14px;
       font-weight: 600;
+      position: relative;
+      padding-bottom: 4px;
     }
 
+    nav a::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      bottom: 0;
+      width: 0;
+      height: 2px;
+      background: #ffffff;
+      transition: width 0.2s ease;
+    }
+
+    nav a:hover::after {
+      width: 100%;
+    }
+
+    /* =======================
+       SEARCH
+    ======================= */
     .search-box {
       position: relative;
     }
 
     .search-box input {
-      padding: 8px 34px 8px 12px;
-      border-radius: 3px;
+      width: 190px;
+      padding: 9px 36px 9px 14px;
+      border-radius: 6px;
       border: none;
       font-size: 13px;
       outline: none;
+      transition: width 0.25s ease, box-shadow 0.2s ease;
+    }
+
+    .search-box input:focus {
+      width: 240px;
+      box-shadow: 0 0 0 3px rgba(255,255,255,0.25);
     }
 
     .search-box::after {
       content: "🔍";
       position: absolute;
-      right: 10px;
+      right: 12px;
       top: 50%;
       transform: translateY(-50%);
       opacity: 0.6;
+      font-size: 14px;
     }
 
-    .section-header {
-      background: var(--eastlake-red);
-      color: #fff;
-      padding: 36px 20px;
+    /* =======================
+       HERO / SECTION HEADER
+    ======================= */
+    .hero {
+      background: #ffffff;
+      border-bottom: 1px solid var(--border-light);
+      padding: 48px 24px;
     }
 
-    .section-header h2 {
-      max-width: 1300px;
+    .hero-inner {
+      max-width: 1400px;
       margin: 0 auto;
-      font-size: 34px;
-      font-weight: 800;
-      text-transform: uppercase;
-      letter-spacing: 1px;
     }
 
+    .hero h2 {
+      margin: 0;
+      font-size: 38px;
+      font-weight: 800;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+    }
+
+    .hero p {
+      margin-top: 10px;
+      font-size: 15px;
+      color: var(--text-muted);
+      max-width: 700px;
+    }
+
+    /* =======================
+       MAIN CONTENT
+    ======================= */
     main {
-      max-width: 1300px;
-      margin: 40px auto 60px;
-      padding: 0 20px;
+      max-width: 1400px;
+      margin: 42px auto 80px;
+      padding: 0 24px;
     }
 
     .grid {
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
-      gap: 24px;
+      grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+      gap: 28px;
     }
 
     .card {
-      background: #fff;
-      border-radius: 4px;
-      padding: 26px 18px;
+      background: var(--bg-card);
+      border-radius: 12px;
+      padding: 28px 22px;
       text-align: center;
       text-decoration: none;
-      color: #222;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.12);
-      transition: transform 0.2s ease, box-shadow 0.2s ease;
+      color: var(--text-main);
+      box-shadow: var(--shadow-soft);
+      transition: transform 0.25s ease, box-shadow 0.25s ease;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .card::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(120deg, transparent, rgba(140,29,33,0.08), transparent);
+      opacity: 0;
+      transition: opacity 0.25s ease;
+    }
+
+    .card:hover::before {
+      opacity: 1;
+    }
+
+    .card:hover {
+      transform: translateY(-8px);
+      box-shadow: var(--shadow-hover);
     }
 
     .card.hidden {
       display: none;
     }
 
-    .card:hover {
-      transform: translateY(-6px);
-      box-shadow: 0 10px 22px rgba(0,0,0,0.22);
-    }
-
     .card span {
       display: block;
-      font-size: 18px;
+      font-size: 19px;
       font-weight: 700;
-      color: var(--eastlake-dark);
-      text-transform: capitalize;
+      color: var(--red-primary);
     }
 
+    /* =======================
+       FOOTER
+    ======================= */
     footer {
-      background: var(--eastlake-dark);
-      color: #f0dede;
+      background: var(--red-dark);
+      color: #f3dede;
       text-align: center;
-      padding: 24px 14px;
+      padding: 26px 18px;
       font-size: 13px;
+    }
+
+    /* =======================
+       RESPONSIVE
+    ======================= */
+    @media (max-width: 900px) {
+      .header-inner {
+        grid-template-columns: 1fr;
+        text-align: center;
+      }
+
+      nav {
+        flex-wrap: wrap;
+      }
+
+      .search-box {
+        margin-top: 10px;
+      }
     }
   </style>
 </head>
@@ -191,9 +288,12 @@
   </div>
 </header>
 
-<div class="section-header">
-  <h2>Games Directory</h2>
-</div>
+<section class="hero">
+  <div class="hero-inner">
+    <h2>Games Directory</h2>
+    <p>Approved educational and recreational games curated for Eastlake students.</p>
+  </div>
+</section>
 
 <main>
   <div class="grid" id="games"></div>
@@ -208,8 +308,8 @@
   const repo = "educatingtheworld";
   const path = "games";
 
-  // 🔧 MANUAL GAMES — EDIT THIS LIST
-  const manualGames = [
+  // ✏️ MANUAL GAMES
+ const manualGames = [
     { name: "SandBoxels", url: "https://hydrophobis.github.io/sandboxels/" },
     { name: "Bit Planes", url: "https://counterofdays.github.io/another-game-repository/bit-planes/" },
     { name: "Super Hot", url: "https://counterofdays.github.io/another-game-repository/superhot/" }
@@ -220,23 +320,23 @@
   let cards = [];
 
   function createCard(name, url) {
-    const link = document.createElement("a");
-    link.className = "card";
-    link.href = url;
-    link.dataset.name = name.toLowerCase();
+    const card = document.createElement("a");
+    card.className = "card";
+    card.href = url;
+    card.dataset.name = name.toLowerCase();
 
     const span = document.createElement("span");
     span.textContent = name;
 
-    link.appendChild(span);
-    container.appendChild(link);
-    cards.push(link);
+    card.appendChild(span);
+    container.appendChild(card);
+    cards.push(card);
   }
 
-  // Load manual games first
+  // Manual games first
   manualGames.forEach(game => createCard(game.name, game.url));
 
-  // Load GitHub games
+  // GitHub games
   fetch(`https://api.github.com/repos/${user}/${repo}/contents/${path}`)
     .then(res => res.json())
     .then(items => {
@@ -244,21 +344,18 @@
         .filter(item => item.type === "dir")
         .sort((a, b) => a.name.localeCompare(b.name))
         .forEach(item => {
-          const name = item.name.replace(/-/g, " ");
-          const url = `/educatingtheworld/games/${item.name}/`;
-          createCard(name, url);
+          createCard(
+            item.name.replace(/-/g, " "),
+            `/educatingtheworld/games/${item.name}/`
+          );
         });
     });
 
-  // 🔍 Live search filtering
+  // Live search
   searchInput.addEventListener("input", () => {
     const query = searchInput.value.toLowerCase();
-
     cards.forEach(card => {
-      card.classList.toggle(
-        "hidden",
-        !card.dataset.name.includes(query)
-      );
+      card.classList.toggle("hidden", !card.dataset.name.includes(query));
     });
   });
 </script>
